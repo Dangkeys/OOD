@@ -32,11 +32,7 @@ class funString():
         ### Enter Your Code Here ###
 
     def deleteSame(self):
-        new_string = []
-        for char in self.string:
-            if char not in new_string:
-                new_string.append(char)
-        return ''.join(new_string)
+        return ''.join(list(dict.fromkeys(self.string)))
 
 
 
