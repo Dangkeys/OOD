@@ -16,7 +16,8 @@ class ManageStack:
         if self.isEmpty():
             return '-1'
         number = int(number)
-        removed_items = [str(char) for char in sorted([int(i) for i in self.items if i == number])]
+        sorted_remove_items = sorted([int(i) for i in self.items if i == number])
+        removed_items = [str(char) for char in sorted_remove_items]
         self.items = [i for i in self.items if i != number]
         return removed_items
         
@@ -24,7 +25,7 @@ class ManageStack:
         if self.isEmpty():
             return '-1'
         number = int(number)
-        removed_items = [i for i in self.items if i < number]
+        removed_items = sorted([i for i in self.items if i < number])
         self.items = [i for i in self.items if i >= number]
         return removed_items
 
@@ -32,7 +33,7 @@ class ManageStack:
         if self.isEmpty():
             return '-1'
         number = int(number)
-        removed_items = [i for i in self.items if i > number]
+        removed_items = sorted([i for i in self.items if i > number])
         self.items = [i for i in self.items if i <= number]
         return removed_items
 
