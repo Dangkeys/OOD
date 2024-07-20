@@ -40,4 +40,3 @@ printList(LL2)
 m = mergeOrderesList(LL1,LL2)
 print('Merge Result : ',end='')
 printList(m)
-asdf
