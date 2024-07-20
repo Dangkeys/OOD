@@ -14,10 +14,11 @@
 class node:
     def __init__(self,data,next = None ):
         ### Code Here ###
-        pass
+        self.data = data
+        self.next = next
     def __str__(self):
         ### Code Here ###
-        pass
+        return self.data
 
 def createList(l=[]):
     ### Code Here ###
