@@ -57,16 +57,23 @@ class Node:
             return Node._rebalance(root)
         return root
 
-    def inorder_traversal(self, root):
+    def inorder(self, root):
         # Helper function to perform in-order traversal and return a sorted list
         if root is None:
             return []
         return (
-            self.inorder_traversal(root.left)
+            self.inorder(root.left)
             + [root.data]
-            + self.inorder_traversal(root.right)
+            + self.inorder(root.right)
         )
-    
+    def postorder(self, root):
+        if root is None:
+            return []
+        return (
+            self.postorder(root.right)
+            + [root.data]
+            + self.postorder(root.left)
+        )
     def find_node(root, data):
         if root.data == data:
             return root
@@ -81,17 +88,17 @@ class Node:
             except:
                 pass
 
-    def find_node_and_replace(root, data, node):
+    def replace(root, data, node):
         if root.data == data:
             return node
         if data < root.data:
             try:
-                root.left = Node.find_node_and_replace(root.left, data, node)
+                root.left = Node.replace(root.left, data, node)
             except:
                 pass
         else:
             try:
-                root.right = Node.find_node_and_replace(root.right, data, node)
+                root.right = Node.replace(root.right, data, node)
             except:
                 pass
         return root
@@ -129,12 +136,12 @@ rotate, direction, inp = input('Enter input: ').split(',')
 rotate = int(rotate)
 root = None
 
-def rearrange_node(direction, node: Node):
+def rearrange(direction, node: Node):
     root = None
     if direction == "right":
-        orders = node.inorder_traversal(node)
+        orders = node.inorder(node)
     else:
-        orders = reversed(node.inorder_traversal(node))
+        orders = node.postorder(node)
     for i in orders:
         root = Node.insert(root, i,direction, False)
     return root
@@ -150,10 +157,9 @@ founded_node = Node.find_node(root, rotate)
 if founded_node is None:
     print(f"No {rotate} in this tree")
     exit()
-node = rearrange_node(direction, founded_node)
-root = Node.find_node_and_replace(root, rotate, node)
+node = rearrange(direction, founded_node)
+root = Node.replace(root, rotate, node)
 tree_image = root._gen_display()
-
 
 
 print("After")
